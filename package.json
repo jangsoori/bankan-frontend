@@ -10,8 +10,10 @@
     "@testing-library/user-event": "^7.2.1",
     "emotion-reset": "^2.0.7",
     "emotion-theming": "^10.0.27",
+    "polished": "^4.0.3",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
+    "react-hook-form": "^6.9.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.4"
   },
@@ -21,6 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy":"http://localhost:5000",
   "eslintConfig": {
     "extends": "react-app"
   },
