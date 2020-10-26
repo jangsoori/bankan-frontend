@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import useAuth, { AuthContext } from "../../hooks/useAuth";
 import Logo from "../common/Logo";
 
 const StyledHeader = styled.header`
@@ -26,12 +27,22 @@ const NavItem = styled(Link)`
   }
 `;
 export default function Header() {
+  const user = useContext(AuthContext);
   return (
     <StyledHeader>
       <StyledLogo />
       <StyledNav>
-        <NavItem to="/login">Log in</NavItem>
-        <NavItem to="/signup">Sign up</NavItem>
+        {!user ? (
+          <>
+            <NavItem to="/login">Log in</NavItem>
+            <NavItem to="/signup">Sign up</NavItem>
+          </>
+        ) : (
+          <>
+            <NavItem to="/login">Dashboard</NavItem>
+            <NavItem to="/signup">Log out</NavItem>
+          </>
+        )}
       </StyledNav>
     </StyledHeader>
   );
