@@ -74,6 +74,8 @@ export const MetaItem = styled(Link)`
     color: ${({ theme }) => theme.colors.greyBlue};
   }
 `;
-export const Error = styled.p``;
+export const Error = styled.p`
+  color: ${({ theme }) => theme.error};
+`;
 export const Warning = styled.p``;
 export const Success = styled.p``;
