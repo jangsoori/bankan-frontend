@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import Logo from "../common/Logo";
 import {
   Inputs,
@@ -14,22 +13,20 @@ import {
   StyledForm,
   Wrapper,
 } from "../../utils/forms";
-import Axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Formik, useFormik } from "formik";
+
+import { Formik } from "formik";
 import useAuth from "../../hooks/useAuth";
 
 export default function Signup() {
   const { signup } = useAuth();
-  const history = useHistory();
+
   const onSubmit = (data) => {
-    console.log(data);
     if (data.password !== data.passwordCheck) {
       console.log("Password do not match.");
+    } else {
+      //If all good, proceed to creating user
+      signup(data.email, data.password, data.passwordCheck, data.displayName);
     }
-    //If all good, proceed to creating user
-    signup(data.email, data.password, data.passwordCheck, data.displayName);
   };
 
   return (
