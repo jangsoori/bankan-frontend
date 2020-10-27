@@ -45,7 +45,9 @@ export default function Header() {
       <StyledNav>
         {user.userData.token && user.userData.user ? (
           <>
-            <NavItem onClick={() => history.push("/")}>Dashboard</NavItem>
+            <NavItem onClick={() => history.push("/dashboard")}>
+              Dashboard
+            </NavItem>
             <NavItem onClick={() => logout()} to="/">
               Log out
             </NavItem>
