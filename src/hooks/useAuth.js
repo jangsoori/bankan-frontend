@@ -42,7 +42,7 @@ export default function useAuth() {
       })
       .then((res) => {
         toast.success("Successful login! Redirecting...");
-        history.push("/");
+        history.push("/dashboard");
       })
       .catch((e) => {
         toast.error(e.response.data.msg);
