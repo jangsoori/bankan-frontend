@@ -99,7 +99,7 @@ export default function Login({ title, children, values }) {
             )}
             <Meta>
               <MetaItem to="/signup">Need an account?</MetaItem>
-              <MetaItem to="/">Forgot a password?</MetaItem>
+              <MetaItem to="/reset-password">Forgot a password?</MetaItem>
             </Meta>
           </StyledForm>
         )}
