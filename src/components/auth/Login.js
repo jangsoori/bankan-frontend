@@ -19,7 +19,7 @@ import { Formik } from "formik";
 import { useHistory } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
-export default function Login({ title, children, values }) {
+export default function Login() {
   const { login } = useAuth();
 
   const onSubmit = (data) => {

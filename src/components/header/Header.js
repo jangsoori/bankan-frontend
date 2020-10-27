@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Logo from "../common/Logo";
-import Cookies from "js-cookie";
 import UserContext from "../../context/UserContext";
 import useAuth from "../../hooks/useAuth";
 

@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import ResetPassPage from "../pages/ResetPassPage";
 import UserContext from "../context/UserContext";
-import Axios from "axios";
 import useUser from "../hooks/useUser";
 import { ToastContainer } from "react-toastify";
 

@@ -1,7 +1,5 @@
-import styled from "@emotion/styled";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
+import { useHistory } from "react-router-dom";
 import Logo from "../common/Logo";
 import {
   Inputs,
@@ -12,8 +10,6 @@ import {
   Meta,
   MetaItem,
   Error,
-  Warning,
-  Success,
   Title,
   StyledForm,
   Wrapper,
