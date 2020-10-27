@@ -53,6 +53,10 @@ export default function SideNav() {
         </UserAvatar>
       </User>
       <Links>
+        <Link onClick={() => history.push("/dashboard")}>
+          <i class="fas fa-home fa-2x"></i>
+          <Label>Home</Label>
+        </Link>
         <Link onClick={() => history.push("/dashboard/profile")}>
           <i class="fas fa-user fa-2x"></i>
           <Label>Profile</Label>
