@@ -22,7 +22,7 @@ export default function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/signup" component={SignupPage} />
-          <Route exact path="/forgot-password" component={ResetPassPage} />
+          <Route exact path="/reset-password" component={ResetPassPage} />
         </Switch>
         <ToastContainer
           position="bottom-center"
