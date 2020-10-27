@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Logo from "../common/Logo";
 import {
   Inputs,
@@ -22,32 +22,18 @@ import Axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Formik, useFormik } from "formik";
+import useAuth from "../../hooks/useAuth";
 
 export default function Signup() {
+  const { signup } = useAuth();
+  const history = useHistory();
   const onSubmit = (data) => {
     console.log(data);
-    if (data.password !== data.repeat_password) {
-      console.log("this dont maczz");
+    if (data.password !== data.passwordCheck) {
+      console.log("Password do not match.");
     }
     //If all good, proceed to creating user
-    Axios.post(
-      "/api/auth/createUser",
-      {
-        email: data.email,
-        password: data.password,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-        },
-      }
-    )
-      .then((res) => {
-        toast.success("Account created successfully! You can now log in.");
-      })
-      .catch((e) => {
-        toast.error(e.response.data.msg);
-      });
+    signup(data.email, data.password, data.passwordCheck, data.displayName);
   };
 
   return (
@@ -57,7 +43,8 @@ export default function Signup() {
         initialValues={{
           email: "",
           password: "",
-          repeat_password: "",
+          passwordCheck: "",
+          displayName: "",
         }}
         validate={(values) => {
           const errors = {};
@@ -76,15 +63,19 @@ export default function Signup() {
             errors.password = "Password is required!";
           }
 
-          if (values.password !== values.repeat_password) {
-            errors.repeat_password = "Passwords do not match!";
+          if (values.password !== values.passwordCheck) {
+            errors.passwordCheck = "Passwords do not match!";
           }
-          if (values.password && !values.repeat_password) {
-            errors.repeat_password = "Repeat your password!";
+          if (values.password && !values.passwordCheck) {
+            errors.passwordCheck = "Repeat your password!";
           }
-          if (values.password.length < 6) {
+          if (values.password.length < 5) {
             errors.password =
               "Please provide password that is actually somewhat good...";
+          }
+          //Handle display name
+          if (!values.displayName) {
+            errors.displayName = "Display name is required!";
           }
           return errors;
         }}
@@ -100,6 +91,8 @@ export default function Signup() {
           isSubmitting,
         }) => (
           <StyledForm onSubmit={handleSubmit}>
+            <Title>Register</Title>
+
             <Inputs>
               <InputWrapper>
                 <Label>Email</Label>
@@ -129,15 +122,31 @@ export default function Signup() {
                 <Label>Repeat password</Label>
                 <Input
                   type="password"
-                  name="repeat_password"
+                  name="passwordCheck"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.repeat_password}
+                  value={values.passwordCheck}
                 />
                 <Error>
-                  {errors.repeat_password &&
-                    touched.repeat_password &&
-                    errors.repeat_password}
+                  {errors.passwordCheck &&
+                    touched.passwordCheck &&
+                    errors.passwordCheck}
+                </Error>
+              </InputWrapper>
+              <InputWrapper>
+                <Label>Display name</Label>
+                <Input
+                  type="text"
+                  name="displayName"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.displayName}
+                />
+                <Error>
+                  {" "}
+                  {errors.displayName &&
+                    touched.displayName &&
+                    errors.displayName}
                 </Error>
               </InputWrapper>
             </Inputs>
@@ -152,17 +161,6 @@ export default function Signup() {
           </StyledForm>
         )}
       </Formik>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </Wrapper>
   );
 }

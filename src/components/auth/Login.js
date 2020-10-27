@@ -1,6 +1,5 @@
 import React from "react";
 import Logo from "../common/Logo";
-import Cookies from "js-cookie";
 import {
   Inputs,
   InputWrapper,
@@ -16,34 +15,15 @@ import {
   StyledForm,
   Wrapper,
 } from "../../utils/forms";
-import { toast, ToastContainer } from "react-toastify";
 import { Formik } from "formik";
-import Axios from "axios";
 import { useHistory } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 export default function Login({ title, children, values }) {
-  const history = useHistory();
+  const { login } = useAuth();
+
   const onSubmit = (data) => {
-    //If all good, proceed to creating user
-    Axios.post(
-      "/api/auth/authUser",
-      {
-        email: data.email,
-        password: data.password,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-        },
-      }
-    )
-      .then((res) => {
-        toast.success("Successful login! Redirecting...");
-        Cookies.get("token") && history.push("/");
-      })
-      .catch((e) => {
-        toast.error(e.response.data.msg);
-      });
+    login(data.email, data.password);
   };
 
   return (
@@ -85,6 +65,7 @@ export default function Login({ title, children, values }) {
           isSubmitting,
         }) => (
           <StyledForm onSubmit={handleSubmit}>
+            <Title>Login</Title>
             <Inputs>
               <InputWrapper>
                 <Label>Email</Label>
@@ -116,20 +97,13 @@ export default function Login({ title, children, values }) {
             ) : (
               <Submit type="submit" value="Log in!" />
             )}
+            <Meta>
+              <MetaItem to="/signup">Need an account?</MetaItem>
+              <MetaItem to="/">Forgot a password?</MetaItem>
+            </Meta>
           </StyledForm>
         )}
       </Formik>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </Wrapper>
   );
 }
