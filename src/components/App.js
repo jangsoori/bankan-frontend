@@ -8,6 +8,7 @@ import ResetPassPage from "../pages/ResetPassPage";
 import UserContext from "../context/UserContext";
 import useUser from "../hooks/useUser";
 import { ToastContainer } from "react-toastify";
+import Dashboard from "./dashboard/Dashboard";
 
 const StyledApp = styled.main`
   height: 100%;
@@ -22,6 +23,7 @@ export default function App() {
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/signup" component={SignupPage} />
           <Route exact path="/reset-password" component={ResetPassPage} />
+          <Route path="/dashboard" component={Dashboard} />
         </Switch>
         <ToastContainer
           position="bottom-center"
